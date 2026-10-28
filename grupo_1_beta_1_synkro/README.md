@@ -119,8 +119,11 @@ Los `id` son UUID que genera la base de datos.
 2. `EmpresaControlador` y `PrioridadControlador`: faltaban `@GetMapping` y `@DeleteMapping`; la ruta `"/id"` se corrigió a `"/{id}"`; se quitaron imports sin uso.
 3. `ServicioReto`: solo tenía `guardar`; se implementaron `buscar`, `modificar` y `eliminar`, que el controlador ya usaba.
 4. `ServicioEmpresa.modificar`: ahora actualiza todos los campos (antes solo nombre y contacto).
+5. **CORS habilitado:** se agregó `config/CorsConfig.java` para que un frontend (por ejemplo React en `http://localhost:5173`) pueda consumir la API desde el navegador. Permite `GET`, `POST`, `PUT`, `DELETE` y `OPTIONS` desde cualquier puerto de `localhost`.
 
 ## Verificación
 
 - `./mvnw clean package` compila sin errores y pasa la prueba `contextLoads`, que levanta la aplicación completa con H2.
 - Con la aplicación en ejecución se probó el CRUD de los 5 recursos (POST → GET → PUT → DELETE → GET) y todas las operaciones respondieron correctamente.
+- Se verificó CORS: la consulta previa (preflight) desde `http://localhost:5173` responde 200 con `Access-Control-Allow-Origin`.
+- Se puede probar visualmente con el frontend [`frontend-pruebas-api`](../frontend-pruebas-api/).

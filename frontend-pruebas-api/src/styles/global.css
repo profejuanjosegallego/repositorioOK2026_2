@@ -1,0 +1,292 @@
+/* =============================================================================
+   ESTILOS GLOBALES
+   -----------------------------------------------------------------------------
+   Variables de diseño (colores, sombras, radios), estilos base y animaciones.
+   Cambiar los valores de :root cambia el aspecto de toda la aplicación.
+   ============================================================================= */
+
+:root {
+  /* Colores de marca */
+  --primario: #6366f1;
+  --primario-oscuro: #4f46e5;
+  --primario-suave: #eef2ff;
+  --acento: #06b6d4;
+  --degradado: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+
+  /* Neutros */
+  --fondo: #f6f7fb;
+  --superficie: #ffffff;
+  --borde: #e5e7f0;
+  --texto: #0f172a;
+  --texto-suave: #5b6478;
+  --texto-tenue: #94a3b8;
+  --oscuro: #0b1020;
+
+  /* Estados */
+  --exito: #10b981;
+  --exito-suave: #ecfdf5;
+  --peligro: #ef4444;
+  --peligro-suave: #fef2f2;
+  --aviso: #f59e0b;
+  --aviso-suave: #fffbeb;
+
+  /* Tipografía */
+  --fuente: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* Forma y profundidad */
+  --radio-sm: 10px;
+  --radio: 16px;
+  --radio-lg: 24px;
+  --sombra-sm: 0 1px 2px rgb(15 23 42 / 0.06), 0 1px 3px rgb(15 23 42 / 0.08);
+  --sombra: 0 10px 30px -12px rgb(15 23 42 / 0.18);
+  --sombra-lg: 0 30px 60px -20px rgb(15 23 42 / 0.35);
+  --sombra-color: 0 12px 30px -10px rgb(99 102 241 / 0.55);
+
+  /* Movimiento */
+  --suave: cubic-bezier(0.22, 1, 0.36, 1);
+  --navbar-alto: 72px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--texto);
+  background: var(--fondo);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+code,
+pre {
+  font-family: var(--fuente-mono);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: rgb(99 102 241 / 0.25);
+}
+
+:focus-visible {
+  outline: 3px solid rgb(99 102 241 / 0.45);
+  outline-offset: 2px;
+}
+
+main {
+  min-height: 70vh;
+}
+
+/* ---- Utilidades ---- */
+
+.contenedor {
+  width: min(1200px, 100% - 32px);
+  margin-inline: auto;
+}
+
+.texto-degradado {
+  background: var(--degradado);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brillo-degradado 6s linear infinite;
+}
+
+/* ---- Animaciones ---- */
+
+/* Entrada escalonada: usar style={{ '--retraso': '200ms' }} */
+.entrada {
+  opacity: 0;
+  animation: subir-aparecer 0.9s var(--suave) forwards;
+  animation-delay: var(--retraso, 0ms);
+}
+
+/* Aparición al hacer scroll (componente <Aparecer />) */
+.aparecer {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition: opacity 0.8s var(--suave), transform 0.8s var(--suave);
+}
+
+.aparecer--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes subir-aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes brillo-degradado {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+}
+
+@keyframes acercar-lento {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes latido {
+  0% {
+    box-shadow: 0 0 0 0 rgb(16 185 129 / 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgb(16 185 129 / 0);
+  }
+}
+
+@keyframes brillo-esqueleto {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fila-entrada {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes modal-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fundido {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes deslizar-derecha {
+  from {
+    opacity: 0;
+    transform: translateX(110%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes barra-progreso {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes scroll-indicador {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 14px);
+  }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

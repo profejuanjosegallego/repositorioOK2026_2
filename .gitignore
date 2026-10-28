@@ -8,3 +8,7 @@ target/
 # IDE
 .idea/
 *.iml
+
+# Frontend
+node_modules/
+dist/

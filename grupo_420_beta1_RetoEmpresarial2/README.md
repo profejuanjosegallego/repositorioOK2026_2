@@ -123,8 +123,11 @@ Los `id` son UUID que genera la base de datos.
 8. Servicios: `servicioEmpresa` → `ServicioEmpresa` y `servicioReto` → `ServicioReto` (clase y archivo); `ServicioPrioridad` usa `IRepositoryPrioridad`; `ServicioReto.modificar` ya actualiza los campos; `eliminarPrioridad` de Reto → `eliminarReto`; se corrigieron mensajes de error copiados ("prioridad").
 9. Se eliminaron las carpetas `target_classes/` y `target_test-classes/`, que contenían archivos compilados subidos al repositorio.
 10. `application.properties`: se agregó la configuración de H2 y de la consola web.
+11. **CORS habilitado:** se agregó `config/CorsConfig.java` para que un frontend (por ejemplo React en `http://localhost:5173`) pueda consumir la API desde el navegador. Permite `GET`, `POST`, `PUT`, `DELETE` y `OPTIONS` desde cualquier puerto de `localhost`.
 
 ## Verificación
 
 - `./mvnw clean package` compila sin errores y pasa la prueba `contextLoads`, que levanta la aplicación completa con H2.
 - Con la aplicación en ejecución se probó el CRUD de los 5 recursos (POST → GET → PUT → DELETE → GET) y todas las operaciones respondieron correctamente.
+- Se verificó CORS: la consulta previa (preflight) desde `http://localhost:5173` responde 200 con `Access-Control-Allow-Origin`.
+- Se puede probar visualmente con el frontend [`frontend-pruebas-api`](../frontend-pruebas-api/).

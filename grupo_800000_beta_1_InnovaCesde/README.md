@@ -124,8 +124,11 @@ Los `id` son UUID que genera la base de datos.
 5. `Empresa.contacto` ya no es único y pasó de 10 a 100 caracteres.
 6. Servicios: `ServicioRegistro.modificar` no actualizaba ningún campo (solo tenía comentarios); los `modificar` de Empresa, Categoría, Prioridad y Reto ahora actualizan todos los campos.
 7. `application.properties`: se agregó la configuración de H2 y de la consola web.
+8. **CORS habilitado:** se agregó `config/CorsConfig.java` para que un frontend (por ejemplo React en `http://localhost:5173`) pueda consumir la API desde el navegador. Permite `GET`, `POST`, `PUT`, `DELETE` y `OPTIONS` desde cualquier puerto de `localhost`.
 
 ## Verificación
 
 - `./mvnw clean package` compila sin errores y pasa la prueba `contextLoads`, que levanta la aplicación completa con H2.
 - Con la aplicación en ejecución se probó el CRUD de los 5 recursos (POST → GET → PUT → DELETE → GET) y todas las operaciones respondieron correctamente.
+- Se verificó CORS: la consulta previa (preflight) desde `http://localhost:5173` responde 200 con `Access-Control-Allow-Origin`.
+- Se puede probar visualmente con el frontend [`frontend-pruebas-api`](../frontend-pruebas-api/).
