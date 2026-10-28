@@ -1,0 +1,10 @@
+# Archivos generados al compilar
+target/
+*.log
+
+# Comprimidos de entrega (el código ya está en las carpetas)
+*.zip
+
+# IDE
+.idea/
+*.iml
